@@ -1,4 +1,8 @@
 class ApplicationsController < ApplicationController
+    def index
+        applications= Application.order('created at DESC');
+        render json: {status:'SUCCESS', messages:'loades article',data:applications}, status: :ok
+    end
     def create
         application = Application.new (
             name:app_params[:name]
