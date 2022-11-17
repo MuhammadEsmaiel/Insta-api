@@ -10,7 +10,8 @@ class ApplicationsController < ApplicationController
         token_hash = BCrypt::Engine.hash_secret(app_params[:name],name_salt)
         application.token=token_hash
         #noofchat=Chats.find_by(application_id: application)
-        application.user_id=1
+        application.user_id= params[:user_id]
+        application.msg_no=1
         if application.save
             render json: {status:'SUCCESS', messages:'create application',data:application}, status: :ok
         else
@@ -37,6 +38,6 @@ class ApplicationsController < ApplicationController
     end
     private
     def app_params
-        params.require(:application).permit([:name,:msg_no])
+        params.require(:application).permit([:name])
     end
 end

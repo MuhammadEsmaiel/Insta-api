@@ -3,12 +3,10 @@ class ChatsController < ApplicationController
         chat= Chat.all;
         render json: {status:'SUCCESS', messages:'loaded chats',data:chat}, status: :ok
     end
-    sum_value = 0;
     def create
-        application= Application.find_by_token(params[:token])
         chat = Chat.new()
-        chat.application_id=application.id
-        sum_value = sum_value + 1;
+        chat.application_id=params[:application_id]
+        chat.noOfChat=1
         if chat.save
             render json: {status:'SUCCESS', messages:'create chat',data:chat}, status: :ok
         else
