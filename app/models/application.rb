@@ -1,5 +1,6 @@
 class Application < ApplicationRecord
-  has_and_belongs_to_many :user
-  validates_uniqueness_of :token
+  belongs_to :user
+  validates_uniqueness_of :name
+  validates :name, presence: true
   has_many :chats
 end

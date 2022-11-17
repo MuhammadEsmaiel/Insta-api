@@ -6,7 +6,7 @@ class ChatsController < ApplicationController
     
     def create
         application_id= Application.find_by(token :params[:token])
-        render json: {status:'SUCCESS', messages:'loaded chats',data:application_id}, status: :ok
+        render json: {status:'SUCCESS', messages:'loaded chats',data:params[:token]}, status: :ok
        # if chat.save
         #    render json: {status:'SUCCESS', messages:'create chat',data:chat}, status: :ok
         #else
