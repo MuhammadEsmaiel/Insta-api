@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :chats
+  get 'session/new'
       resources :users
       resources :messages 
       resources :chats 

@@ -1,28 +1,42 @@
-class ApplicationsController < ApplicationController
+require 'digest'
+class ApplicationsController < ApplicationController  
     def index
-        applications= Application.order('created at DESC');
+        applications= Application.all;
         render json: {status:'SUCCESS', messages:'loades article',data:applications}, status: :ok
     end
     def create
-        application = Application.new (
-            name:app_params[:name]
-            chat_no:app_params[:chat_no]
-            msg_no:app_params[:msg_no]
-            user_id:app_params[:user_id]
-        )
-        if app.save
-            render json: user, status:200
+        application = Application.new(app_params)
+        name_salt = BCrypt::Engine.generate_salt
+        token_hash = BCrypt::Engine.hash_secret(app_params[:name],name_salt)
+        application.token=token_hash
+        noofchat=Chats.find_by(application_id: application)
+        application.user_id=1
+        if application.save
+            render json: {status:'SUCCESS', messages:'create application',data:application}, status: :ok
         else
-            render json: {error:"error creating user"}
+            render json: {error:"same token"}
+        end
+    end
+    def show 
+        application=Application.find(params[:id])
+        if application.save
+            render json: {status:'SUCCESS', messages:'loaded application',data:application}, status: :ok
+        else
+            render json: {status:'SUCCESS', messages:'unfounded',data:application}, status: :ok
+        end
+    end
+
+    def destroy
+        application = Application.find(params[:id])
+        application.destroy
+        if application.save
+            render json: {status:'SUCCESS', messages:'delete application',data:application}, status: :ok
+        else
+            render json: {status:'SUCCESS', messages:'unfounded',data:application}, status: :ok
+        end
     end
     private
     def app_params
-        params.require(:product).permit([
-            :token,
-            :name,
-            :chat_no,
-            :msg_no,
-            :user_id,
-        ])
+        params.require(:application).permit([:name,:msg_no])
     end
 end

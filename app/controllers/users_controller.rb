@@ -7,6 +7,7 @@ class UsersController < ApplicationController
         user = User.new (user_params)
         if user.save
             render json: {status:'SUCCESS', messages:'create user',data:user}, status: :ok
+            session[:user_id]=user.id
         else
             render json: {error:"this username is already taken"}
         end
@@ -15,6 +16,7 @@ class UsersController < ApplicationController
     def show 
         user=User.find(params[:id])
         if user.save
+            session[:user_id]=user.id
             render json: {status:'SUCCESS', messages:'loaded user',data:user}, status: :ok
         end
     end
