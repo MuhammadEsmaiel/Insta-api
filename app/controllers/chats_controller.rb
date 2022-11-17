@@ -3,15 +3,17 @@ class ChatsController < ApplicationController
         chat= Chat.all;
         render json: {status:'SUCCESS', messages:'loaded chats',data:chat}, status: :ok
     end
-    
+    sum_value = 0;
     def create
-        application_id= Application.find_by(token :params[:token])
-        render json: {status:'SUCCESS', messages:'loaded chats',data:params[:token]}, status: :ok
-       # if chat.save
-        #    render json: {status:'SUCCESS', messages:'create chat',data:chat}, status: :ok
-        #else
-         #   render json: {error:"this username is already taken"}
-        #end
+        application= Application.find_by_token(params[:token])
+        chat = Chat.new()
+        chat.application_id=application.id
+        sum_value = sum_value + 1;
+        if chat.save
+            render json: {status:'SUCCESS', messages:'create chat',data:chat}, status: :ok
+        else
+            render json: {error:"this username is already taken"}
+        end
     end
 
     def show 
@@ -28,6 +30,6 @@ class ChatsController < ApplicationController
     end
     private
         def chat_params
-            params.require(:chat).permit([:token,:noofchat])
+            params.require(:chat).permit([:token])
         end
 end
