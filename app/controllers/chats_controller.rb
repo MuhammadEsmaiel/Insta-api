@@ -28,6 +28,6 @@ class ChatsController < ApplicationController
     end
     private
         def chat_params
-            params.require(:chat).permit([:token,:chat_no])
+            params.require(:chat).permit([:token,:noofchat])
         end
 end

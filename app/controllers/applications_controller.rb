@@ -1,4 +1,4 @@
-require 'digest'
+
 class ApplicationsController < ApplicationController  
     def index
         applications= Application.all;
@@ -9,7 +9,7 @@ class ApplicationsController < ApplicationController
         name_salt = BCrypt::Engine.generate_salt
         token_hash = BCrypt::Engine.hash_secret(app_params[:name],name_salt)
         application.token=token_hash
-        noofchat=Chats.find_by(application_id: application)
+        #noofchat=Chats.find_by(application_id: application)
         application.user_id=1
         if application.save
             render json: {status:'SUCCESS', messages:'create application',data:application}, status: :ok
