@@ -21,7 +21,7 @@ class ChatsController < ApplicationController
         if chat.save
             render json: {status:'SUCCESS', messages:'create chat',data:chat}, status: :ok
         else
-            render json: {error:"this username is already taken"}
+            render json: {error:"creating this chat"}
         end
     end
 
