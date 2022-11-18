@@ -6,7 +6,18 @@ class ChatsController < ApplicationController
     def create
         chat = Chat.new()
         chat.application_id=params[:application_id]
-        chat.noOfChat=1
+        zoom= Chat.all
+        boom=zoom.where("application_id == ?",params[:application_id]).count
+        chat_count=boom
+        if chat_count == nil
+            chat_count = 1
+            chat.noOfChat = chat_count
+          else
+            chat_count = chat_count+1
+            chat.noOfChat= chat_count
+          end
+          application = Application.find(params[:application_id])
+          application.update(chat_no: chat_count)
         if chat.save
             render json: {status:'SUCCESS', messages:'create chat',data:chat}, status: :ok
         else
@@ -26,8 +37,4 @@ class ChatsController < ApplicationController
         chat.destroy
         render json: {status:'SUCCESS', messages:'delete chat',data:chat}, status: :ok
     end
-    private
-        def chat_params
-            params.require(:chat).permit([:token])
-        end
 end

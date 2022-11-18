@@ -9,7 +9,9 @@ class ApplicationsController < ApplicationController
         name_salt = BCrypt::Engine.generate_salt
         token_hash = BCrypt::Engine.hash_secret(app_params[:name],name_salt)
         application.token=token_hash
-        #noofchat=Chats.find_by(application_id: application)
+        zoom= Chat.all
+        boom=zoom.where("application_id == ?",params[:application_id]).count
+        application.chat_no= boom
         application.user_id= params[:user_id]
         application.msg_no=1
         if application.save
