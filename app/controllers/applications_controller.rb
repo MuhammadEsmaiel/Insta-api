@@ -3,7 +3,7 @@ require 'digest'
 class ApplicationsController < ApplicationController  
     def index
         applications= Application.all;
-        render json: {status:'SUCCESS', messages:'loades article',data:applications}, status: :ok
+        render json: {status:'SUCCESS', messages:'loades article',data:Digest::MD5.hexdigest('1')}, status: :ok
     end
     def create
         application = Application.new(app_params)

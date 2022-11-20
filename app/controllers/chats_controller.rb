@@ -5,17 +5,8 @@ class ChatsController < ApplicationController
     end
     def create
         chat = Chat.new()
-        chat.application_id=params[:application_id]
-        zoom= Chat.all
-        boom=zoom.where("application_id = ?",params[:application_id]).count
-        chat_count=boom
-        if chat_count == nil
-            chat_count = 1
-            chat.noOfChat = chat_count
-          else
-            chat_count = chat_count+1
-            chat.noOfChat= chat_count
-          end
+        chat.application =params[:application_id]
+        chat.noOfChat=1
           application = Application.find(params[:application_id])
           application.update(chat_no: chat_count)
         if chat.save
