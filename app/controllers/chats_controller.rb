@@ -7,7 +7,7 @@ class ChatsController < ApplicationController
         chat = Chat.new()
         chat.application_id=params[:application_id]
         zoom= Chat.all
-        boom=zoom.where("application_id == ?",params[:application_id]).count
+        boom=zoom.where("application_id = ?",params[:application_id]).count
         chat_count=boom
         if chat_count == nil
             chat_count = 1
