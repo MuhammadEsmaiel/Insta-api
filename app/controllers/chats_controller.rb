@@ -24,7 +24,7 @@ class ChatsController < ApplicationController
         end
     end
 
-    def show 
+    def show
         chat=Chat.find(params[:id])
         if chat.save
             render json: {status:'SUCCESS', messages:'loaded chat',data:chat}, status: :ok
