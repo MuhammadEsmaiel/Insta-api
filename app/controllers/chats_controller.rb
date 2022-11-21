@@ -5,18 +5,8 @@ class ChatsController < ApplicationController
     end
     def create
         chat = Chat.new()
-        chat.application_id=params[:application_id]
-        cht= Chat.all
-        chat_count=cht.where("application_id = ?",params[:application_id]).count
-        if chat_count == 0
-            chat_count = 1
-            chat.noOfChat = chat_count
-          else
-            chat_count = chat_count+1
-            chat.noOfChat= chat_count
-          end
-          application = Application.find(params[:application_id])
-          application.update(chat_no: chat_count)
+        chat.noOfChat=0
+        chat.applications_id=1
         if chat.save
             render json: {status:'SUCCESS', messages:'create chat',data:chat}, status: :ok
         else

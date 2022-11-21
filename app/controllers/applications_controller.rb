@@ -1,6 +1,6 @@
 class ApplicationsController < ApplicationController  
     def index
-        applications= Application.all;
+        application= Application.all;
         render json: {status:'SUCCESS', messages:'loades article',data:application}, status: :ok
     end
     def create

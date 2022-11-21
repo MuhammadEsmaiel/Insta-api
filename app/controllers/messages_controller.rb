@@ -5,8 +5,8 @@ class MessagesController < ApplicationController
     end
     def create
         message = Message.new(msg_params)
-        message.chat_id=params[:chat_id]
-        message.application_id=params[:application_id]
+        message.chats_id=params[:chat_id]
+        message.applications_id=params[:application_id]
         msgs= Message.all
         msg_count=msgs.where("application_id = ?",params[:application_id]).count
         if msg_count == 0

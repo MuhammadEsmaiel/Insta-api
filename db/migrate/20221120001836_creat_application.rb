@@ -6,6 +6,5 @@ class CreatApplication < ActiveRecord::Migration[7.0]
       t.integer :msg_no
       t.timestamps
     end
-    execute("ALTER TABLE applications AUTO_INCREMENT = 5011")
   end
 end
