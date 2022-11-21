@@ -7,14 +7,8 @@ class ApplicationsController < ApplicationController
     end
     def create
         application = Application.new(app_params)
-        token_hash = Digest::MD5.hexdigest(app_params[:name])
-        application.token=token_hash
-        chts= Chat.all
-        chts_count=chts.where("application_id = ?",params[:application_id]).count
-        application.chat_no= chts_count
-        msgs= Message.all
-        msgs_count=msgs.where("application_id = ?",params[:application_id]).count
-        application.msg_no=msgs_count
+        application.chat_no = 0
+        application.msg_no =0
         if application.save
             render json: {status:'SUCCESS', messages:'create application',data:application}, status: :ok
         else
