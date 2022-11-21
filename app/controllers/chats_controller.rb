@@ -8,7 +8,7 @@ class ChatsController < ApplicationController
         chat.application_id=params[:application_id]
         cht= Chat.all
         chat_count=cht.where("application_id = ?",params[:application_id]).count
-        if chat_count == nil
+        if chat_count == 0
             chat_count = 1
             chat.noOfChat = chat_count
           else

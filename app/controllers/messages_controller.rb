@@ -7,10 +7,9 @@ class MessagesController < ApplicationController
         message = Message.new(msg_params)
         message.chat_id=params[:chat_id]
         message.application_id=params[:application_id]
-        zoom= Message.all
-        boom=zoom.where("application_id = ?",params[:application_id]).count
-        msg_count=boom
-        if msg_count == nil
+        msgs= Message.all
+        msg_count=msgs.where("application_id = ?",params[:application_id]).count
+        if msg_count == 0
             msg_count = 1
             message.msg_number = msg_count
           else

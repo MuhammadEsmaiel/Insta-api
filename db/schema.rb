@@ -21,24 +21,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_002110) do
 
   create_table "chats", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "noOfChat"
+    t.bigint "application_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "applications_id", null: false
-    t.index ["applications_id"], name: "index_chats_on_applications_id"
+    t.index ["application_id"], name: "index_chats_on_application_id"
   end
 
   create_table "messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "msg_number"
     t.text "text"
-    t.bigint "applications_id", null: false
-    t.bigint "chats_id", null: false
+    t.bigint "chat_id", null: false
+    t.bigint "application_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["applications_id"], name: "index_messages_on_applications_id"
-    t.index ["chats_id"], name: "index_messages_on_chats_id"
+    t.index ["application_id"], name: "index_messages_on_application_id"
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
   end
 
-  add_foreign_key "chats", "applications", column: "applications_id"
-  add_foreign_key "messages", "applications", column: "applications_id"
-  add_foreign_key "messages", "chats", column: "chats_id"
+  add_foreign_key "chats", "applications"
+  add_foreign_key "messages", "applications"
+  add_foreign_key "messages", "chats"
 end
