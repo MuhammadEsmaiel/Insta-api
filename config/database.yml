@@ -3,9 +3,9 @@ default: &default
   encoding: utf8
   pool: 5
   database: insta-api
-  username: muhammad
+  username: root
   password: 123456789
-  host: <%= ENV['DB_HOST'] %>
+  host: <%= ENV['DB_HOST'] %s>
 
 development:
   <<: *default
