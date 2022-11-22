@@ -1,13 +1,11 @@
 default: &default
   adapter: mysql2
-  encoding: utf8mb4
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: 123456789
-  port: <%= ENV['DB_PORT'] %>
-  host: <%= ENV['DB_HOST'] %>
+  encoding: utf8
+  pool: 5
   database: insta-api
-  socket: /var/run/mysqld/mysqlx.sock
+  username: muhammad
+  password: 123456789
+  host: <%= ENV['DB_HOST'] %>
 
 development:
   <<: *default
