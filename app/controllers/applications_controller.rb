@@ -4,7 +4,7 @@ class ApplicationsController < ApplicationController
         render json: {status:'SUCCESS', messages:'loades article',data:application}, status: :ok
     end
     def create
-        application = Application.new(app_params)
+        application = Application.lock.new(app_params)
         application.chat_cont = 0
         application.msg_cont = 0
         if application.save
@@ -14,7 +14,7 @@ class ApplicationsController < ApplicationController
         end
     end
     def show
-        application=Application.find(params[:id])
+        application=Application.lock.find(params[:id])
         if application.save
             render json: {status:'SUCCESS', messages:'loaded application',data:application}, status: :ok
         else
@@ -23,7 +23,7 @@ class ApplicationsController < ApplicationController
     end
 
     def destroy
-        application = Application.find(params[:id])
+        application = Application.lock.find(params[:id])
         application.destroy
         if application.save
             render json: {status:'SUCCESS', messages:'delete application',data:application}, status: :ok
