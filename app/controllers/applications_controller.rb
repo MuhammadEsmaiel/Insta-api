@@ -5,8 +5,8 @@ class ApplicationsController < ApplicationController
     end
     def create
         application = Application.new(app_params)
-        application.chat_no = 0
-        application.msg_no = 0
+        application.chat_cont = 0
+        application.msg_cont = 0
         if application.save
             render json: {status:'SUCCESS', messages:'create application',data:application}, status: :ok
         else
