@@ -10,7 +10,7 @@ class ApplicationsController < ApplicationController
         if application.save
             render json: {status:'SUCCESS', messages:'create application',data:application}, status: :ok
         else
-            render json: {error:"same token"}
+            render json: {error:"this name is already taken"}
         end
     end
     def show
