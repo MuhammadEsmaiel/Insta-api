@@ -10,5 +10,6 @@ ADD Gemfile /instaa/Gemfile
 ADD Gemfile.lock /instaa/Gemfile.lock
 
 RUN bundle install
+RUN rails db:migrate
 
 ADD . /instaa
