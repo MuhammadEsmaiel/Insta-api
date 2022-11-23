@@ -1,24 +1,47 @@
-# README
+# Instabug Chat System API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A backend API for a chat system that allows the creation of multiple chat application
+each of which can contain multiple chats which in turn contains multiple messages, moreover, 
+the API allow for text search of the chat.
 
-Things you may want to cover:
+# API
 
-* Ruby version
+```
+# Create new application
+curl -X POST -d '{"name": "test"}'  applications/
 
-* System dependencies
 
-* Configuration
+# Show all aplications
+curl -X GET applications
 
-* Database creation
+# Create new chat
+curl -X POST applications/application_id/chats
 
-* Database initialization
+# Show chat by ID
+curl -X GET -d '{"chat_id": "1"}' applications/application_id/chats
 
-* How to run the test suite
+# Create new message
+curl -X POST -d '{"content": "hello"}'  applications/application_id/chats/chat_id/messages
 
-* Services (job queues, cache servers, search engines, etc.)
+# Show messages in chat(by chat_id)
+curl -X GET applications/application_id/chats/chat_id/messages
 
-* Deployment instructions
 
-* ...
+# Search through messages
+curl -X GET -d '{"query": "hello"}'  applications/application_id/chats/chat_id/messages/search/
+
+```  
+
+# Dependencies
+
+- Docker
+- Docker compose
+- Elastic search (network fetched)
+- Mysql (network fetched)
+- Ruby on rails (network fetched)
+
+# Run
+
+```
+docker-compose up
+```
