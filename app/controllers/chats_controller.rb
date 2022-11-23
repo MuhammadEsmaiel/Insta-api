@@ -1,12 +1,13 @@
 class ChatsController < ApplicationController
     def index
-        @chats= Chat.all;
-        render json: {status:'SUCCESS', messages:'loaded chats',data:@chats}, status: :ok
+        chats= Chat.all;
+        render json: {status:'SUCCESS', messages:'loaded chats',data:chats}, status: :ok
     end
     def create
         chat = Chat.new()
         chat.application_id= params[:application_id]
-        cht_sum=@chats.where("application_id = ?",params[:application_id]).count
+        chats= Chat.all;
+        cht_sum=chats.where("application_id = ?",params[:application_id]).count
         if cht_sum == 0
             cht_sum = 1
            chat.chat_no = cht_sum

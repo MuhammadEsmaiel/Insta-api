@@ -84,6 +84,7 @@ GEM
       activesupport (> 3)
       elasticsearch (~> 7)
       hashie
+    elasticsearch-rails (7.2.1)
     elasticsearch-transport (7.17.7)
       faraday (~> 1)
       multi_json
@@ -201,6 +202,7 @@ DEPENDENCIES
   bootsnap
   debug
   elasticsearch-model
+  elasticsearch-rails
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rails (~> 7.0.4)
