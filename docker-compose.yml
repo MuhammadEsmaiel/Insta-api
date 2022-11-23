@@ -10,6 +10,8 @@ services:
       MYSQL_PASSWORD: 123456789
     ports:
       - "3307:3306"
+    networks:
+      - my-network
   app:
     build: .
     command: 
@@ -17,7 +19,7 @@ services:
     volumes:
       - ".:/noteapp"
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - db
     links:
@@ -27,22 +29,23 @@ services:
       DB_NAME: insta-api
       DB_PASSWORD: 123456789
       DB_HOST: db
+    networks:
+      - my-network
+
   elasticsearch:
-      image: docker.elastic.co/elasticsearch/elasticsearch:8.5.2-arm64
-      environment:
-        - cluster.name=docker-cluster
-        - bootstrap.memory_lock=true
-        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        - xpack.security.enabled=false
-        - xpack.monitoring.enabled=false
-        - xpack.graph.enabled=false
-        - xpack.watcher.enabled=false
-      ulimits:
-        memlock:
-          soft: -1
-          hard: -1
-      volumes:
-        - ./docker_data/elasticsearch/data:/usr/share/elasticsearch/data
-      ports:
-        - 9200:9200
-  
+    image: "docker.elastic.co/elasticsearch/elasticsearch:8.5.2"
+    container_name: elasticsearch
+    environment:
+    - discovery.type=single-node
+    - cluster.routing.allocation.disk.threshold_enabled=true
+    - cluster.routing.allocation.disk.watermark.low=65%
+    - cluster.routing.allocation.disk.watermark.high=70%
+    - xpack.security.enabled=false
+    - xpack.security.audit.enabled=false
+    ports:
+    - "9200:9200"
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge
