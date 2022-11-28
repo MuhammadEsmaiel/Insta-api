@@ -40,8 +40,12 @@ class MessagesController < ApplicationController
         render json: {status:'SUCCESS', messages:'delete message',data:message}, status: :ok
     end
     def search
-        msgs= Message.search(params[:query])
-        render json: {status:'SUCCESS', messages:'delete message',data:msgs}, status: :ok
+        if params[:query]
+            msgs= Message.search_msg(params[:query])
+            render json: {status:'SUCCESS', messages:'message you searched for',data:msgs}, status: :ok
+        else
+            render json: {status:'SUCCESS', messages:'no query passed'}, status: :ok
+        end
     end
     private
     def msg_params
