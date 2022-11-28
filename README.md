@@ -45,4 +45,7 @@ curl -X GET -d '{"query": "hello"}'  applications/application_id/chats/chat_id/m
 ```
 docker-compose up
 ```
+# Note
+
+ You need to open localhost:3000 once before making requests to run pending migrates  
   
