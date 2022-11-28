@@ -45,6 +45,4 @@ curl -X GET -d '{"query": "hello"}'  applications/application_id/chats/chat_id/m
 ```
 docker-compose up
 ```
-# Note
-  All functions that have been required work fine but for some reason the configuration of the elastic search file cant built up with docker, so the messages model isn't work using docker-compose up, but it works fine using rails server but in this case, you need to download elastic search manually, sorry for that I tried to solve it but because of the deadline was so close so I had to submit, thank you.
   
