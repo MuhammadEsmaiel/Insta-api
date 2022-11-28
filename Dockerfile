@@ -1,15 +1,9 @@
-
 FROM ruby:3.1.2
-
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs --force-yes
-
-RUN mkdir /instaa
-WORKDIR /instaa
-
-ADD Gemfile /instaa/Gemfile
-ADD Gemfile.lock /instaa/Gemfile.lock
-
+WORKDIR /app
+COPY . .
+ADD Gemfile /app/Gemfile
+ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install
-RUN rails db:migrate
-
-ADD . /instaa
+#CMD ruby -e "require 'faraday'; p Faraday::VERSION; Faraday.get('http://localhost:9200')"
+CMD ["rails", "server", "-b", "0.0.0.0"]
+EXPOSE 3000

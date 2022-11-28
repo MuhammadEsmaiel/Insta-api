@@ -1,51 +1,36 @@
-version: '2'
-services:
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456789
-      MYSQL_DATABASE: insta-api
-      MYSQL_USER: muhammad
-      MYSQL_PASSWORD: 123456789
-    ports:
-      - "3307:3306"
-    networks:
-      - my-network
-  app:
-    build: .
-    command: 
-          bundle exec rails s -p 3000 -b '0.0.0.0'
-    volumes:
-      - ".:/noteapp"
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    links:
-      - db
-    environment:
-      DB_USER: muhammad
-      DB_NAME: insta-api
-      DB_PASSWORD: 123456789
-      DB_HOST: db
-    networks:
-      - my-network
+ version: "3.7"
 
-  elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:8.5.2"
-    container_name: elasticsearch
-    environment:
-    - discovery.type=single-node
-    - cluster.routing.allocation.disk.threshold_enabled=true
-    - cluster.routing.allocation.disk.watermark.low=65%
-    - cluster.routing.allocation.disk.watermark.high=70%
-    - xpack.security.enabled=false
-    - xpack.security.audit.enabled=false
-    ports:
-    - "9200:9200"
-    networks:
-      - my-network
-networks:
-  my-network:
-    driver: bridge
+ services:
+    app:
+      build: .
+      command: bundle exec rails s -p 3000 -e development -b '0.0.0.0'
+      ports:
+        - 3000:3000
+      working_dir: /app
+      volumes:
+        - ./:/app
+      environment:
+            DB_USER: root
+            DB_NAME: insta-api
+            DB_PASSWORD: 123456789
+            DB_HOST: mysql
+
+    mysql:
+      image: mysql:5.7
+      volumes:
+        - insta-mysql-data:/var/lib/mysql
+      environment:
+            MYSQL_ROOT_PASSWORD: 123456789
+            MYSQL_DATABASE: insta-api
+
+    elasticsearch:
+      image: elasticsearch:7.17.6
+      hostname: "elasticsearch"
+      environment:
+          - discovery.type=single-node
+      ports:
+            - "9200:9200"
+
+      
+ volumes:
+      insta-mysql-data:
