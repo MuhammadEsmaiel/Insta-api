@@ -8,7 +8,7 @@ the API allow for text search of the chat.
 
 ```
 # Create new application
-curl -X POST -d '{"name": "test"}'  applications/
+curl -X POST -d '{"name": "test"}'  applications
 
 
 # Show all aplications
@@ -28,7 +28,7 @@ curl -X GET applications/application_id/chats/chat_id/messages
 
 
 # Search through messages
-curl -X GET -d '{"query": "hello"}'  applications/application_id/chats/chat_id/messages/search/
+curl -X GET -d '{"query": "hello"}'  applications/application_id/chats/chat_id/messages/search
 
 ```  
 
@@ -47,5 +47,10 @@ docker-compose up
 ```
 # Note
 
- You need to open localhost:3000 once before making requests to run pending migrates  
+ First time you run docker-compose up, after it builds successfully you need to run this command only one time to migrate pending migrations
+ 
+ ```
+ docker exec -it insta-api-app-1 rails db:migrate
+ ```
+ or you can open localhost:3000 and press run pending migrations to run it manually.
   
